@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<style>
+			/* toggle submenu display - the essential part */
+			.menu ul > li ul { display:none; }
+			 input[type="checkbox"]:checked + ul { display:block;} 
+			
+			/* just cosmetics*/
+			.menu{ 
+				background-color: #C06574;
+				color: white;
+				position:fixed;
+				top: 0;
+				left: 0;
+			}
+			.menu input[type="checkbox"] {
+				opacity: 0;
+				position: absolute;
+				left: -9999;
+			}
+			ul{ list-style-type: none; }
+			a { color: #fff;  	text-decoration: none;}
+.hidden { display:none; } 
+.visible {display:block;}
+
+
+		</style>
+	</head>	
+<body>
+	
+	<div class="menu" id="menu">
+		<ul class="nav level-one" id="menulist">
+			<li class="level-1" id="1">  <a href="#"></a> 
+			  <label for="toggle-level-2-01" class="toggle"> item 1</label>
+<!--			  <input type="checkbox" id="toggle-level-2-01" onchange="hideparent(this)">-->
+			<input type="checkbox" id="toggle-level-2-01" >
+			  <ul class="level-two">
+
+				<li class="level-2" id="2">  <a href="#"></a>
+				  <label for="toggle-level-3-01" class="toggle"> child 1</label>
+				  <input type="checkbox" id="toggle-level-3-01" onchange="")>
+				  <ul class="level-three"> 
+
+					<li class="level-3"> <a href="#">grandchild</a>
+<!--					  <label for="toggle-level-4-01" class="toggle"> grandchild 1</label>-->
+<!--					  <input type="checkbox" id="toggle-level-4-01">-->
+<!--					  <ul class="level-four"> -->
+<!--					-->
+<!--						<li class="level-4"> <a href="#">great-grandchild 1 </a> </li>-->
+<!--					  </ul>  level 4-->
+<!--					</li>-->
+<!--					-->
+<!--				  </ul>  level 3-->
+				</li>
+				
+			  </ul>  <!-- level 2 -->
+			</li>
+			
+		</ul> <!--level 1-->
+	</div><!--menu-->
+	
+<!--	<div id="test">here: </div>-->
+<!--<ul id="tabs">  <li class="firsttab"><a href="#">ONE</a></li> <li class="secondtab"><a href="#">TWO</a></li>  </ul>-->
+<!-- 
+npm.now.shr
+iatucrypto
+https://halfapx.com/multilevel-dropdown-without-js/	-->
+
+<script>
+
+// function init() {
+//  var tablinks = document.getElementById('tabs').getElementsByTagName('a');
+//  for (var i = 0, j = tablinks.length; i < j; i++) {     tablinks[i].onclick = doit;   } }
+//function doit() {   alert(this.parentNode.className); }
+// window.onload = init;
+
+
+
+ var level1,level2,level3,level4, newParent;
+ level1=  document.getElementsByClassName("level-1");
+// level2=  document.getElementsByClassName("level-2");
+// level3 = document.getElementsByClassName("level-3");
+// level4 = document.getElementsByClassName("level-4");
+
+newParent =   document.getElementById("menu");
+//oldparent =    document.getElementById("menulist");
+//one =  document.getElementById("toggle-level-2-01");
+
+function something(){
+//console.log ("a");
+
+var el = newParent.getElementsByTagName('li')
+newParent.children.removeChild(el[0]);
+
+
+//console.log(element.id);
+//var parent = element.parentNode; 
+	//console.log(parent.children);
+}
+
+
+function hideparent(element){
+	var id = element.id
+	var parent = element.parentNode; 
+	var children = parent.children;
+	var i;
+	
+	//console.log(parent.children);
+	for(i = 0, length = children.length; i < length; i++) {
+		if (children[i].nodeName === "UL") { 
+			// console.log ("child " + i + " is a unordered list");
+			var node = children[i].cloneNode(true);  //console.log(node);
+			 newParent.appendChild(node);
+			
+			//var backButton;
+			//backButton.createElement('li');
+			 //backButton.innerHTML  = 'back';
+			 node.insertAdjacentHTML('afterbegin','<li class="dl-back" id="back"  onclick="something()"><a href="#">back</a></li>');
+			 parent.classList.add("hidden");
+			 node.id =  node;
+			// console.log(node.id);
+			// node.getElementById("back").addEventListener(onclick,function(ev){alert("test");});
+		}
+	}
+
+
+
+
+//level2[0].classList.add("visible");
+
+
+
+
+
+//	console.log( document.getElementById(element) );
+	
+//	var  i,x = document.getElementsByClassName("level-one");
+//	for(i = 0, length = x.length; i < length; i++) {
+//		x[i].classList.add("hidden");
+//		x[i].style. = 0"0px";
+//	}
+	
+	//x = document.getElementsByClassName("level-two");
+	//x[0].classList.add("visible");
+	}
+
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<style> 
+/* Common styles of menus */
+
+.dl-menuwrapper {
+	width: 100%;
+	max-width: 300px;
+	position: relative;	
+}
+
+.dl-menuwrapper ul { background: #aaa; }
+
+.dl-menuwrapper li a {
+	display: block;
+	position: relative;
+	padding: 15px 20px;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 300;
+	color: #fff;
+	outline: none;
+}
+
+.dl-menuwrapper ul {
+	padding: 0;
+	list-style: none;
+	transform-style: preserve-3d;
+}
+
+/*menu open/close */
+.dl-menuwrapper .dl-menu {
+	margin: 5px 0 0 0;
+	position: absolute;
+	width: 100%;
+	opacity: 0;
+	pointer-events: none;
+	transform: translateY(10px);
+	backface-visibility: hidden;
+}
+
+.dl-menuwrapper .dl-menu.dl-menu-toggle {
+	transition: all 0.3s ease;
+}
+
+.dl-menuwrapper .dl-menu.dl-menuopen {
+	opacity: 1;
+	pointer-events: auto;
+	transform: translateY(0px);
+}
+
+/* Hide the inner submenus */
+.dl-menuwrapper li .dl-submenu {
+	display: none;
+}
+
+/* 
+When a submenu is openend, we will hide all li siblings.
+For that we give a class to the parent menu called "dl-subview".
+We also hide the submenu link. 
+The opened submenu will get the class "dl-subviewopen".
+All this is done for any sub-level being entered.
+*/
+.dl-menu.dl-subview li,
+.dl-menu.dl-subview li.dl-subviewopen > a,
+.dl-menu.dl-subview li.dl-subview > a {
+	display: none;
+}
+
+.dl-menu.dl-subview li.dl-subview,
+.dl-menu.dl-subview li.dl-subview .dl-submenu,
+.dl-menu.dl-subview li.dl-subviewopen,
+.dl-menu.dl-subview li.dl-subviewopen > .dl-submenu,
+.dl-menu.dl-subview li.dl-subviewopen > .dl-submenu > li {
+	display: block;
+}
+
+/* Dynamically added submenu outside of the menu context */
+.dl-menuwrapper > .dl-submenu {
+	position: absolute;
+	width: 100%;
+	top: 50px;
+	left: 0;
+	margin: 0;
+}
+
+/* Animation classes for moving out and in */
+.dl-menu.dl-animate-out-1 { animation: MenuAnimOut1 0.4s; } 
+@keyframes MenuAnimOut1 {
+	0% { }
+	50% { transform: translateZ(-250px) rotateY(30deg); }
+	75% { transform: translateZ(-372.5px) rotateY(15deg); opacity: .5; }
+	100% { transform: translateZ(-500px) rotateY(0deg); opacity: 0; }
+}
+
+.dl-menu.dl-animate-in-1 { animation: MenuAnimIn1 0.3s; }
+@keyframes MenuAnimIn1 {
+	0% { transform: translateZ(-500px) rotateY(0deg); opacity: 0; }
+	20% { transform: translateZ(-250px) rotateY(30deg); opacity: 0.5; }
+	100% { transform: translateZ(0px) rotateY(0deg); opacity: 1; }
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-in-1 {	animation: SubMenuAnimIn1 0.4s ease; }
+@keyframes SubMenuAnimIn1 {
+	0% { transform: translateX(50%); opacity: 0; }
+	100% { transform: translateX(0px); opacity: 1; }
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-out-1 { animation: SubMenuAnimOut1 0.4s ease; }
+@keyframes SubMenuAnimOut1 {
+	0% { 	transform: translateX(0%); 	opacity: 1; }
+	100% { transform: translateX(50%); 	opacity: 0; }
+}
+</style>
+	</head>
+	<body>
+		<div id="dl-menu" class="dl-menuwrapper">
+			<button class="dl-trigger">Open Menu</button>
+			<ul class="dl-menu">
+				<li>
+					<a href="#">Fashion</a>
+					<ul class="dl-submenu">
+						<li>
+							<a href="#">Men</a>
+							<ul class="dl-submenu">
+								<li><a href="#">Shirts</a></li>
+								<li><a href="#">Jackets</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div><!-- /dl-menuwrapper -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script>
+
+;( function( $, window, undefined ) {
+
+	'use strict';
+
+	// global
+	var Modernizr = window.Modernizr, $body = $( 'body' );
+
+	$.DLMenu = function( options, element ) {
+		this.$el = $( element );
+		this._init( options );
+	};
+
+	// the options
+	$.DLMenu.defaults = {
+		// classes for the animation effects
+		animationClasses : { classin : 'dl-animate-in-1', classout : 'dl-animate-out-1' },
+		// callback: click a link that has a sub menu
+		// el is the link element (li); name is the level name
+		onLevelClick : function( el, name ) { return false; },
+		// callback: click a link that does not have a sub menu
+		// el is the link element (li); ev is the event obj
+		onLinkClick : function( el, ev ) { return false; }
+	};
+
+
+
+
+	$.DLMenu.prototype = {
+		_init : function( options ) {
+
+			// options
+			this.options = $.extend( true, {}, $.DLMenu.defaults, options );
+			// cache some elements and initialize some variables
+			this._config();
+			
+			var animEndEventNames = {
+					'WebkitAnimation' : 'webkitAnimationEnd',
+					'OAnimation' : 'oAnimationEnd',
+					'msAnimation' : 'MSAnimationEnd',
+					'animation' : 'animationend'
+				},
+				transEndEventNames = {
+					'WebkitTransition' : 'webkitTransitionEnd',
+					'MozTransition' : 'transitionend',
+					'OTransition' : 'oTransitionEnd',
+					'msTransition' : 'MSTransitionEnd',
+					'transition' : 'transitionend'
+				};
+			// animation end event name
+			this.animEndEventName = "animationend.dlmenu";
+			// transition end event name
+			this.transEndEventName = "transitionend.dlmenu";
+			// support for css animations and css transitions
+			this.supportAnimations = true;
+			this.supportTransitions = true;
+
+			this._initEvents();
+
+		},
+		_config : function() {
+			this.open = false;
+			this.$trigger = this.$el.children( '.dl-trigger' );
+			this.$menu = this.$el.children( 'ul.dl-menu' );
+			this.$menuitems = this.$menu.find( 'li:not(.dl-back)' );
+			this.$el.find( 'ul.dl-submenu' ).prepend( '<li class="dl-back"><a href="#">back</a></li>' );
+			this.$back = this.$menu.find( 'li.dl-back' );
+		},
+		_initEvents : function() {
+
+			var self = this;
+
+			this.$trigger.on( 'click.dlmenu', function() {
+				
+				if( self.open ) {
+					self._closeMenu();
+				} 
+				else {
+					self._openMenu();
+				}
+				return false;
+
+			} );
+
+			this.$menuitems.on( 'click.dlmenu', function( event ) {
+				
+				event.stopPropagation();
+
+				var $item = $(this),
+					$submenu = $item.children( 'ul.dl-submenu' );
+
+				if( $submenu.length > 0 ) {
+
+					var $flyin = $submenu.clone().css( 'opacity', 0 ).insertAfter( self.$menu ),
+						onAnimationEndFn = function() {
+							self.$menu.off( self.animEndEventName ).removeClass( self.options.animationClasses.classout ).addClass( 'dl-subview' );
+							$item.addClass( 'dl-subviewopen' ).parents( '.dl-subviewopen:first' ).removeClass( 'dl-subviewopen' ).addClass( 'dl-subview' );
+							$flyin.remove();
+						};
+
+					setTimeout( function() {
+						$flyin.addClass( self.options.animationClasses.classin );
+						self.$menu.addClass( self.options.animationClasses.classout );
+						if( self.supportAnimations ) {
+							self.$menu.on( self.animEndEventName, onAnimationEndFn );
+						}
+						else {
+							onAnimationEndFn.call();
+						}
+
+						self.options.onLevelClick( $item, $item.children( 'a:first' ).text() );
+					} );
+
+					return false;
+
+				}
+				else {
+					self.options.onLinkClick( $item, event );
+				}
+
+			} );
+
+			this.$back.on( 'click.dlmenu', function( event ) {
+				
+				var $this = $( this ),
+					$submenu = $this.parents( 'ul.dl-submenu:first' ),
+					$item = $submenu.parent(),
+
+					$flyin = $submenu.clone().insertAfter( self.$menu );
+
+				var onAnimationEndFn = function() {
+					self.$menu.off( self.animEndEventName ).removeClass( self.options.animationClasses.classin );
+					$flyin.remove();
+				};
+
+				setTimeout( function() {
+					$flyin.addClass( self.options.animationClasses.classout );
+					self.$menu.addClass( self.options.animationClasses.classin );
+					if( self.supportAnimations ) {
+						self.$menu.on( self.animEndEventName, onAnimationEndFn );
+					}
+					else {
+						onAnimationEndFn.call();
+					}
+
+					$item.removeClass( 'dl-subviewopen' );
+					
+					var $subview = $this.parents( '.dl-subview:first' );
+					if( $subview.is( 'li' ) ) {
+						$subview.addClass( 'dl-subviewopen' );
+					}
+					$subview.removeClass( 'dl-subview' );
+				} );
+
+				return false;
+
+			} );
+			
+		},
+		closeMenu : function() {
+			if( this.open ) {
+				this._closeMenu();
+			}
+		},
+		_closeMenu : function() {
+			var self = this,
+				onTransitionEndFn = function() {
+					self.$menu.off( self.transEndEventName );
+					self._resetMenu();
+				};
+			
+			this.$menu.removeClass( 'dl-menuopen' );
+			this.$menu.addClass( 'dl-menu-toggle' );
+			this.$trigger.removeClass( 'dl-active' );
+			
+			if( this.supportTransitions ) {
+				this.$menu.on( this.transEndEventName, onTransitionEndFn );
+			}
+			else {
+				onTransitionEndFn.call();
+			}
+
+			this.open = false;
+		},
+		openMenu : function() {
+			if( !this.open ) {
+				this._openMenu();
+			}
+		},
+		_openMenu : function() {
+			var self = this;
+			// clicking somewhere else makes the menu close
+			$body.off( 'click' ).on( 'click.dlmenu', function() {
+				self._closeMenu() ;
+			} );
+			this.$menu.addClass( 'dl-menuopen dl-menu-toggle' ).on( this.transEndEventName, function() {
+				$( this ).removeClass( 'dl-menu-toggle' );
+			} );
+			this.$trigger.addClass( 'dl-active' );
+			this.open = true;
+		},
+		// resets the menu to its original state (first level of options)
+		_resetMenu : function() {
+			this.$menu.removeClass( 'dl-subview' );
+			this.$menuitems.removeClass( 'dl-subview dl-subviewopen' );
+		}
+	};
+
+	var logError = function( message ) {
+		if ( window.console ) {
+			window.console.error( message );
+		}
+	};
+
+	$.fn.dlmenu = function( options ) {
+		if ( typeof options === 'string' ) {
+			var args = Array.prototype.slice.call( arguments, 1 );
+			this.each(function() {
+				var instance = $.data( this, 'dlmenu' );
+				if ( !instance ) {
+					logError( "cannot call methods on dlmenu prior to initialization; " +
+					"attempted to call method '" + options + "'" );
+					return;
+				}
+				if ( !$.isFunction( instance[options] ) || options.charAt(0) === "_" ) {
+					logError( "no such method '" + options + "' for dlmenu instance" );
+					return;
+				}
+				instance[ options ].apply( instance, args );
+			});
+		} 
+		else {
+			this.each(function() {	
+				var instance = $.data( this, 'dlmenu' );
+				if ( instance ) {
+					instance._init();
+				}
+				else {
+					instance = $.data( this, 'dlmenu', new $.DLMenu( options, this ) );
+				}
+			});
+		}
+		return this;
+	};
+
+} )( jQuery, window );
+		</script>
+		<script>
+			$(function() {
+				$( '#dl-menu' ).dlmenu();
+			});
+		</script>
+	</body>
+</html>
