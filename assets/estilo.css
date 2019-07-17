@@ -1,0 +1,150 @@
+@charset "UTF-8";
+
+body {
+background-color : gray;
+font-family: sans-serif;
+color: #282828;
+ }
+
+h1,h3,h4,h5,h6, strong {
+color: black;
+} 
+
+
+pre, code {
+ color: lightgreen;
+  font-family: monospace, monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 2;
+  -moz-tab-size: 2; -o-tab-size: 2; tab-size: 2;
+  -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens: none; hyphens: none;
+ 
+}
+pre {
+  overflow: auto;
+ background-color: black;}
+
+pre > code {
+  display: block;
+  padding: 1rem;
+  word-wrap: normal;
+}
+
+
+
+
+ footer#rodape, header#cabecalho {
+   	 color: white;
+   	 background-color: black;
+    	clear: left;
+    	text-align: center;
+	
+  	}
+
+header#cabecalho{
+  font-family: sans-serif;
+	padding: 1px;
+}
+
+  header#cabecalho h2{
+	padding: 15px;
+	}
+
+  footer#rodape{
+    	padding: 20px;
+
+
+    }
+
+  footer#rodape  a,  header#cabecalho a{
+    color:white;
+    text-decoration: none;
+ }
+
+footer#rodape  a:hover,header#cabecalho a:hover  {
+    color:lightgray;
+}
+
+footer#rodape ul, header#cabecalho ul {
+  list-style-type: none;
+  }
+
+  footer#rodape  li, header#cabecalho li {
+    display: inline-block;
+    padding: 10px;
+    margin: 2px;
+    }
+
+/*  secao dos comentarios
+div#comments {
+
+margin: 30px 0px auto 0px ;
+}
+
+<svg width="1224" height="64" stroke-width='2' stroke='#EDF3ED' viewBox="0 0 1224 64" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,0L1224,0"/>
+  <path d="M0,4l1224,0"/>
+  <path d="M0,8l1224,0"/>
+  <path d="M0,12l1224,0"/>
+  <path d="M0,16l1224,0"/>
+  <path d="M0,20l1224,0"/>
+  <path d="M0,24l1224,0"/>
+  <path d="M0,28l1224,0"/>
+</svg>
+
+
+div#disqus_thread{
+margin: 0px 0px 0px 0px ;
+}
+*/
+
+
+div#interface {
+    width: 65%;
+   background-color: white;
+     margin: 0px auto 0px auto ;
+    box-shadow:0px 0px 10px rgba(0,0,0,.5);
+    padding: 50px;
+}
+
+div#content {
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 50px;
+    padding-left: 0px;
+}
+ div#content a {text-decoration:none;}
+ div#content  time {
+    color: rgba(0,0,0,.5);
+    font-style: italic;
+    font-size: small;
+    line-height : 80%;
+   }
+
+/* formulario fale comigo*/
+
+.formulario{
+ margin: left;
+      padding: 50px ;
+    font-weight: bold;
+   }
+
+input, textarea {
+    font-family: sans-serif;
+    font-size:  13pt;
+    font-weight: normal;
+    background-color: rgba(255,255,255,.8);
+    border-color: #cecece;
+}
+
+input:hover, textarea:hover {
+    background-color:#dddddd ;
+}
+
+
+	
