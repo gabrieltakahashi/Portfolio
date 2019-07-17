@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Holy Grail</title>
+    <style>
+
+        header{
+            background-color:deepskyblue;
+            padding: 35px;
+            text-align: center;
+            border: 1px solid gray;
+        }
+
+        nav{
+            background-color:purple;
+            padding: 5px;
+
+            border: 1px solid gray;
+        }
+
+        main{
+            padding: 0px;
+            text-align: center;
+            border: 1px solid gray;
+            }
+
+        section {
+            background-color:pink;
+        }
+        article{
+            background-color:orangered;
+        }
+
+
+        aside{
+            background-color:purple;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid gray;
+        }
+
+        footer {
+            background-color: deepskyblue;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid gray;
+        }
+
+        body {  /* container pai que coloca todos elementos em coluna*/
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+      .HolyGrail{ /*container filho: coloca os elementos nav content e aside enfileirados */
+          flex: 1 ; /* 'sticky footer' */
+         display: flex;
+
+       }
+
+        .HolyGrail-content {
+            flex: 1 ;
+            flex-direction: column;
+            display: flex;
+         }
+
+        .HolyGrail-content1 {
+            flex: 1 ;
+            padding: 0px;
+         }
+        .HolyGrail-content2 {
+            flex: 1 ;
+            padding: 0px;
+        }
+
+        .HolyGrail-ads {
+            flex: 0 12em;
+        }
+
+
+
+
+    </style>
+
+</head>
+
+
+<body >
+
+    <header class="header"><h2>HEADER</h2></header>
+    <nav> <h2>NAVIGATE</h2> </nav>
+
+    <div class="HolyGrail">
+
+        <main class="HolyGrail-content">
+            <section class="HolyGrail-content1"> <h2> SECTION</h2></section>
+            <article class="HolyGrail-content2"> <h2> ARTICLE</h2></article>
+        </main>
+
+        <aside class="HolyGrail-ads"><h2> ASIDE</h2> </aside>
+    </div>
+
+    <footer class="footer"> <h2> FOOTER </h2> </footer>
+
+</body>
+</html>
