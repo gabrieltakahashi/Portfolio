@@ -1,2 +1,3 @@
 # Portfolio
-html, css, js structure examples
+HTML, CSS, JS structure examples
+
