@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{background-color: #eaf3da;}
+    </style>
+</head>
+<body>
+<img src="" alt="IMG DESCRIPTION" width="48" height="100">
+
+<h1> Simbolos especiais</h1>
+<p>
+    &lt;
+    &gt;
+    &le;
+    &ge; <br/>
+
+    &nbsp; ab a b,  a&nbsp;b
+    &pound;
+    &yen;
+    &euro; <br/>
+</p>
+
+<p> exemplo de formatação:
+
+    H<sub>2</sub>O, 2 <sup>x</sup>
+
+<pre>
+    <code>
+    #include &lt;iostream&gt;
+    int main() {
+        cout << "Ola mundo!";
+        return 0;
+    }
+            </code>
+    </pre>
+</p>
+
+</body>
+</html>
