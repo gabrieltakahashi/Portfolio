@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>the virtual rock</title>
+		<style>	
+		
+		</style>
+		<script src="cookie.js"> </script>
+	 	<script>
+			function resizeRock(){
+				document.getElementById("rockImg").style.height = (document.body.clientHeight - 100 )* 09;
+				
+				/* var w = window.innerWidth
+				|| document.documentElement.clientWidth
+				|| document.body.clientWidth;
+
+				var h = window.innerHeight
+				|| document.documentElement.clientHeight
+				|| document.body.clientHeight;
+
+				var x = document.getElementById("talk");
+				x.innerHTML = "Browser inner window width: " + w + ", height: " + h + "."; */
+			}
+			
+	 	
+	 		function greetUser(){
+	 		
+			if (navigator.cookieEnabled == false){
+	 			talk("ative os cookies para interagir comigo!");
+	 		} else {
+		 		 userName = readCookie ("Irock_username"); 
+		 		 if (userName) {
+					talk("Ola " + userName + ", Senti sua falta.");
+				} else{
+					talk("Ola, sou uma pedra pet.");
+				}
+	 		}
+	 		}
+				
+	 		
+	 		function touchRock(){
+		 		 if (userName) {
+		 			talk("Eu gosto da atenção, " + userName + ". Valeu!");  
+		 			getHappy();
+		 		} else {
+		 			userName = prompt("qual o seu nome?", "");
+		 			if (userName) {
+		 				talk("Prazer em Conhece-lo, " + userName + ".");
+			 			writeCookie("Irock_username", userName, 1 );
+		 			}
+		 			getHappy();
+		 		}
+		 		setTimeout ("getSad();", 5*1000);
+			}
+
+
+
+			function talk(val) {
+				document.getElementById("talk").innerHTML = val;
+			}
+						
+			function getHappy() {
+				document.getElementById("rockImg").src = "rockHappy.png";
+			}
+			function getSad() {
+				document.getElementById("rockImg").src = "rock.png";
+				talk("Estou entediado...");
+			}
+
+			
+
+		
+	 	</script>
+	</head>
+	<body onload="resizeRock();greetUser();" onresize="resizeRock();">
+		<div style="margin-top:100px; text-align:center">	
+		<img id="rockImg" src="rock.png" alt="rock" onclick="touchRock()" style="cursor:pointer"/> 
+		<p id="talk"> </p>
+		</div>
+	</body>
+</html>
+
+
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Eventos</title>
+    <script>
+        function ligar(){
+            document.getElementById("lampada").src = ("img/OnLamp.png");
+        }
+    </script>
+</head>
+<body>
+<div>
+<h3><a id="Manipuladores_de_eventos_0"></a>Manipuladores de eventos</h3>
+<p>Através das ações dos objetos interagimos com a página. É possivel usar <strong>eventos</strong> para engatilhar uma ação.<br>
+    Por Exemplo:</p>
+<pre><code class="language-javascript"> &lt;script&gt;
+        function ligar(){
+            document.getElementById("lampada").src = ("img/OnLamp.png");
+        }
+ &lt;/script&gt;
+</code></pre>
+<p>Temos aqui uma funcao que altera um atributo <em>src</em> de um elemento html chamado “lampada”.</p>
+<pre><code class="language-javascript">
+&lt;img id=<span class="hljs-string">"lampada"</span> src=<span class="hljs-string">"img/OffLamp.png"</span> onclick=<span class="hljs-string">"ligar()"</span> /&gt;
+</code></pre>
+<p>aqui temos dentro do elemento chamado lampada um evento chamado <code>onclick</code>. Este evento executa a funcao <em>ligar()</em> quando o usuário clicar no elemento.</p>
+<p> <em>Veja na prática!</em></p>
+<img id="lampada" src="img/OffLamp.png" onclick="ligar()" />
+
+<p> Legal, né?  você deve ter percebido que apos a lampada ligar, tudo fica meio sem graça, pois não é possivel faze-la desligar de volta clicando nela... a única maneira de fazer isso seria recarregando a página. logo mudaremos isso. :)</p>
+</div>
+</body>
+</html>

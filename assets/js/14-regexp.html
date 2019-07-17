@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style> body{ background-color: lightgray; } 
+			input { background-color: white; }
+			.error { opacity : .3;
+				color:red;
+			 }
+		</style>
+		<script>
+
+
+
+   /*         function check(form,id, e){
+                x = form[id].value;
+                if( x.length == 0){
+                    document.getElementById(e).innerHTML= "por favor digite uma mensagem!";
+                    return false;
+                }
+                return true;
+            }
+            function clean(e){
+                document.getElementById(e).innerHTML= "";
+            }
+			<p>Mensagem: <input id="msg" name="msg" onblur="check(this.form,id,'e1')" onfocus="clean('e1')"/>  <span id="e1" class="error"> </span> </p> */
+			
+	function regEx(reg, input, helpTxt, helpMsg){
+		if (!reg.test(input)) {
+			if (helpTxt != null) {
+				document.getElementById(helpTxt).innerHTML = helpMsg;
+			}
+			return false;
+
+		} else {
+			if (helpTxt != null) {
+				document.getElementById(helpTxt).innerHTML = "";
+			}
+			return true;
+		}
+	}
+
+
+	function valitadeDate (input,helpTxt) {
+	 if (!checkEmpty(input,helpTxt)) { return false;}
+	return regEx( /^\d{2}\/\d{2}\/\d{4}$/ ,input.value,helpTxt,"por favor digite uma data válida(xx/xx/xxxx)!") 
+
+	}
+	
+	function valitadeFone (input,helpTxt) {
+	 if (!checkEmpty(input,helpTxt)) { return false;}
+	return regEx( /^\(\d{2}\)\d{4}-\d{4}$/ ,input.value,helpTxt,"por favor digite um telefone válido ((xx)xxxx-xxxx)!") 
+
+	}
+	
+	function valitadeEmail (input,helpTxt) {
+	 if (!checkEmpty(input,helpTxt)) { return false;}
+	return regEx( /^\w+@\w+\.\w{2,3}$/ ,input.value,helpTxt,"por favor digite um email válido (email@dominio.com)!") 
+
+	}
+
+
+			function checkEmpty(input,helpTxt) {
+
+                if (input.value.length == 0) {
+                    if (helpTxt != null) {
+                        document.getElementById(helpTxt).innerHTML = "nao deixe em branco!";
+                    }
+                    return false;
+                } else {
+                    if (helpTxt != null) {
+                        document.getElementById(helpTxt).innerHTML = "";
+                    }
+                    return true;
+                }
+            }
+
+   function checkLength(min,max,input,helpTxt) {
+
+       if (input.value.length < min || input.value.length > max ) {
+           if (helpTxt != null) {
+               document.getElementById(helpTxt).innerHTML = "por favor digite um valor entre "  + min +" e " + max +" caracteres!";
+           }
+           return false;
+       } else {
+           if (helpTxt != null) {
+               document.getElementById(helpTxt).innerHTML = "";
+           }
+           return true;
+       }
+   }
+
+	function checkCep(input,helpTxt) {
+	var reg = /^\d{5}-\d{3}$/;
+//		if (input.value.length != 8) {
+		if (!reg.test(input.value)) {
+			if (helpTxt != null) {
+				document.getElementById(helpTxt).innerHTML = "por favor digite um valor válido (xxxxx-xxx)!";
+			}
+			return false;
+	//	} else if (isNaN(input.value )){
+	//		if (helpTxt != null) {
+	//			document.getElementById(helpTxt).innerHTML = "por favor entre com um valor numerico";
+	//	   	}
+	//	   	return false;
+		} else {
+			if (helpTxt != null) {
+				document.getElementById(helpTxt).innerHTML = "";
+			}
+			return true;
+		}
+	}
+
+   function placeOrder(form){
+       if (
+        checkLength(1,30,form["msg"],'e1') &&
+		checkCep(form["cep"],'e2') &&
+		checkEmpty(form["data"],'e3') &&
+		checkEmpty(form["nome"],'e4') &&
+		checkEmpty(form["tel"],'e5') &&
+		checkEmpty(form["email"],'e6')
+		 )
+       {
+         	form.submit();
+	   } else {
+		   	alert("ha algo de errado com o preenchimento!")
+	   }
+
+
+   }
+			
+		</script>
+	</head>
+	<body>
+		<form id="formulario" method="">
+			<fieldset>
+			<legend>Form</legend>
+				<p>Mensagem: <input id="msg" name="msg" 	onblur="checkLength(1,30,this,'e1')" />  <span id="e1" class="error"> </span> </p>
+				<p>CEP: <input id="cep" name="cep" 	size ="8" onblur="checkCep(this,'e2')" />  <span id="e2" class="error"> </span> </p>
+				<p>Data: <input id="data" name="data" 		onblur="valitadeDate(this,'e3')" />  <span id="e3" class="error"> </span> </p>
+				<p>Nome:<input id="nome" name="nome"		onblur="checkEmpty(this,'e4')" />  <span id="e4" class="error"> </span> </p>
+				<p>Telefone: <input id="tel" name="tel"	 	onblur="valitadeFone(this,'e5')" />  <span id="e5" class="error"> </span> </p>
+				<p>Email: <input id="email" name="email"	onblur="valitadeEmail(this,'e6')" />  <span id="e6" class="error"> </span> </p>
+				<input type="button" value="Enviar" onclick="placeOrder(this.form)" />
+			</fieldset>
+		</form>
+	<script> </script>
+	</body>
+</html>

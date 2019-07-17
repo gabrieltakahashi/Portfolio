@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>IMC</title>
+		<style>
+			fieldset {
+				width: 140px; }
+			label { display: block; float: left; 	}
+
+
+
+		</style>
+	</head>
+	<body>
+		<form id ="formulario">
+			<fieldset>
+				<legend> Calcular IMC</legend>
+
+				<p>
+					<label for="kilos"> Kilos:</label>
+					<input name="kilos" />
+				</p>
+				<p>
+					<label for="metros"> Metros:</label>
+					<input name="metros" />
+				</p>
+				<p>
+					<label for="centimetros"> Centimetros:</label>
+					<input name="centimetros" />
+				</p>
+				<p>
+					<label for="imc"> IMC:</label>
+					<input name="imc" disabled />
+				</p>
+				<p>
+					<label for="classificacao"> Classificação:</label>
+					<input name="classificacao" disabled />
+				</p>
+				<a href="#" onclick=" calcularIMC();"> Calcular </a>
+			</fieldset>
+
+
+
+		</form>
+
+
+	 	<script>
+			//	<p id="demo"> fail </p>
+	 		function calcularIMC() {
+	 		    var formulario = document.getElementById("formulario") ;
+
+	 		    var kilos =  +formulario.kilos.value;
+				var metros = +formulario.metros.value;
+				var centimetros = +formulario.centimetros.value;
+
+				// alert(typeof(kilos));
+				var altura =  (metros * 100 + centimetros)/ 100 ;
+	 		    //alert(altura);
+	 		    var imc = kilos / (altura * altura);
+
+	 	//	    alert (imc);
+
+                formulario.imc.value = imc.toFixed(2);
+
+                if (imc > 15 && imc <= 20){
+                    formulario.classificacao.value = "abaixo do peso";
+				} else if (imc > 20 && imc <= 25){
+                    formulario.classificacao.value = "Peso ideal";
+                } else if (imc > 25 && imc <= 30){
+                 formulario.classificacao.value = "acima do peso";
+            	} else if (imc > 30 && imc <= 35){
+                    formulario.classificacao.value = "obesidade moderada";
+                } else if (imc > 35 && imc <= 40){
+                    formulario.classificacao.value = "obesidade severa";
+                } else if (imc > 40 && imc <= 50){
+                    formulario.classificacao.value = "obesidade morbida";
+                } else if (imc > 50 && imc <= 80){
+                    formulario.classificacao.value = "super Obesidade ";
+                } else {
+                    formulario.classificacao.value = "WTF!";
+				}
+
+            }
+
+	 		//		document.getElementById("demo").innerHTML = "sucesso";
+	 	</script>
+	</body>
+</html>

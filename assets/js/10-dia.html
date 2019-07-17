@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>que dia é hoje?</title>
+		<style>	
+		
+		</style>
+<script>
+
+//switch:
+ function sdia() {	 	
+	var day;
+	switch (new Date().getDay()) {
+	    case 1:
+		day = "Segunda";
+		break;
+	    case 2:
+		day = "Terça";
+		break;
+	    case 3:
+		day = "Quarta";
+		break;
+	    case 4:
+		day = "Quinta";
+		break;
+	    case 5:
+		day = "Sexta";
+		break;
+	    default :
+	    	day = "fim de semana";
+	    	break;
+	}    	
+
+	if (day != "fim de semana") {
+		day += "-feira";
+	}
+	document.getElementById("demo").innerHTML ="Hoje é " + day + ".";
+
+}		
+	
+	
+
+</script>
+</head>
+<body onload="sdia();">
+
+	<p id="demo"></p>
+	
+	<p> observe o codigo fonte para observar a estrutura switch! Abaixo, temos o mesmo resultado com uma logica mais eficiente: </p>
+	 		
+	<p id="demo2"> </p>	
+	<p id="demo3"> </p>	
+
+	
+	
+<script>
+
+//object literals
+function getDia(n){
+var semana = { 
+	1:'segunda',
+	2:'terca',
+	3:'quarta',
+	4:'quinta',
+	5:'sexta',
+	'default':'fim de semana'};
+
+ return "Hoje é " + (semana[n] || semana['default']) + ".";
+}
+
+var  dia  = getDia( new Date().getDay());
+//console.log(dia);
+document.getElementById("demo2").innerHTML = dia;
+
+
+// table driven development example : [not yet!]
+function getDia2(n){
+}
+document.getElementById("demo3").innerHTML = "";
+
+
+</script>
+	</body>
+</html>
+
+
+
+
+
+

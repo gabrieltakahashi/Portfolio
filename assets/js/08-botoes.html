@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+   <meta charset="utf-8" />
+
+    <title>js</title>
+   	
+<script src="script_1.js"> </script>
+ 
+ 	<script>
+ 	function myFunctionHead(){
+ 		document.getElementById("demo").innerHTML = "mudar paragrafo(com codigo na tag head).";
+ 		}
+ 	</script>
+</head>
+<body>
+
+<h1> TESTE DE BOTOES</h1>
+<p id="demo"> paragrafo </p>
+<button type="button" onclick="myFunctionHead()"> codido no head</button>
+<button type="button" onclick="document.getElementById('demo').innerHTML = 'mudar paragrafo(com codigo dentro do button).'"> codigo dentro do botao </button>
+<button type="button" onclick="myFunctionBottom()"> codigo no fim de body </button>
+<button type="button" onclick="myfunctionExternal()"> codigo em aquivo externo </button>
+
+
+ 	<script>
+ 	function myFunctionBottom(){
+ 		document.getElementById("demo").innerHTML = "mudar paragrafo(com codigo no fim do body).";
+ 		}
+ 	</script>
+</body>
+</html>

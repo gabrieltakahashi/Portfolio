@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Estruturas Condicionais </title>
+		<style></style>
+	</head>
+	<body>
+
+	<input id="numero" onchange="Par(value)"/>
+	<p id="demo"> fail </p>
+
+
+	<script>
+        // var, function, return
+        function calcular(x,y) {
+            var n2, n3 = 15;
+            n2 = x+ y - n3 ;
+            return ( x +"+"+ y + "-"+ n3 +"=" +  n2);
+        }
+        // alert( calcular (10,10));
+
+        //if, else
+        function Par(x) {
+           if (x % 2 == 1 ) {
+               document.getElementById("demo").innerHTML = "Impar";
+            }
+            else  if (x % 2 == 0 )  {
+               document.getElementById("demo").innerHTML = "Par";
+		   } else {
+               document.getElementById("demo").innerHTML = "Digite um número!";
+		   }
+        }
+        document.getElementById("demo").innerHTML = "impar ou par?";
+
+        // switch
+		function checaSexo() {
+            var sexo = "M";
+            switch (sexo) {
+                case "M":
+                    alert("macho");
+                    break;
+				case "F":
+                    alert("femera");
+                    break;
+                default:
+                    alert("indefinido");
+                    break;
+            }
+        }
+        // checaSexo();
+
+	</script>
+	</body>
+</html>

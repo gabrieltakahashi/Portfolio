@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			img {	display: inline-block; 	}
+		</style>
+		<script>
+	
+	var free = 0;
+ 	var occupied = 0;
+ 	var banco = new Array ();
+
+  function random(){ return parseInt((Math.random()*10)+1);  }
+  
+ function isEven(val){ if (val%2 == 0) { return true; }
+		       else{ return false; }
+ }
+ 
+ function ocupaBancos(val,val2){
+	for (var i = 0 ; i < val  ;i++) {
+		 banco[i] = new Array ();
+	 	 for (var i2 = 0 ; i2 < val2  ;i2++) {
+	 		banco[i][i2] =(isEven(random()));
+	 	}
+	  }
+	 		  
+/*  // to check if its o-k
+for (var i = 0 ; i < 4  ;i++) {
+	for (var i2 = 0 ; i2 < 4  ;i2++) {
+ 		console.log("banco ["+ i + "],["+ i2 +"] :" + ( banco[i][i2]));
+ 	}
+  }
+*/ 
+}	
+
+
+
+
+
+	
+ 
+ function escolheBanco(val){
+ var x = document.getElementById(val);
+ var y = ( x.src.substr(x.src.lastIndexOf('/')));	
+ 	
+ if (y === "/seat_avail.png")
+	 { x.src = "seat_none.png";}
+  else if  (y === "/seat_none.png")  { x.src = "seat_avail.png";}
+   else { alert( "banco ocupado!" ); }
+} 
+
+      //    window.onload=function(){
+           function carregaBancos(){
+           var str= "";
+           var id="";
+                  for (var i = 0 ; i <  banco.length   ;i++) {
+                    var para = document.createElement("p");
+                    para.setAttribute("id" ,"p"+ i);
+                    para.setAttribute("value" ,"p" + i);
+                    document.getElementById("placehere").appendChild(para);
+			
+                    for (var i2 = 0 ; i2 <  banco[i].length   ;i2++) {
+                    
+                        var elem = document.createElement("img");
+                        id="seat"+i+i2;
+                        elem.setAttribute("id",id);
+			if (banco[i][i2]){
+				elem.setAttribute("src","seat_avail.png");
+				free += 1;
+			}else {
+				elem.setAttribute("src","seat_unavail.png");
+				occupied +=1 ;
+			}
+			elem.setAttribute("onclick","escolheBanco(id);");
+			document.getElementById("p"+i).appendChild(elem); 
+			
+                    }
+                    			
+                }
+ 	
+ 	 str =   "Total de bancos livres:  " + free + " assentos."  + "<br>" +
+	"Total de bancos ocupados:  " + occupied + " assentos."   + "<br>" ;
+	var total = document.createElement("p");
+	total.setAttribute("id" ,"total");
+	document.getElementById("placehere").appendChild(total);
+ 	document.getElementById("total").innerHTML = str;
+       }
+       
+     
+            
+		</script>
+	</head>
+	<body onload="ocupaBancos(2,6);carregaBancos();">
+		<p id="t"> Exercicio de numero aleatorio</p>
+		<p id="message"> message here</p>
+		<div id="placehere" > </div>
+		<script>
+     function msg(){
+  	document.getElementById("message").innerHTML =  " nesta pagina o Javascript  decide aleatoriamente ocupar os assentos de uma sala de cinema. Escolha o seu banco! Aperte f5 para gerar novamente. Aproveite para dar uma olhada no codigo fonte! ";
+   }   
+	 msg();
+//	<img id="seat1" src="seat_avail.png" alt=""
+
+ 	
+	
+	</script>
+	</body>
+</html>
