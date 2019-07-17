@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Playground</title>
+     <meta charset="UTF-8"> 
+    <style>
+    /* Style the navbar */
+#navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* Navbar links */
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+/* Page content */
+.content {
+  padding: 16px;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+} 
+     </style>
+   
+      
+       </head>
+  <body> 
+  
+   <div id="navbar">
+  <a href="#home">Home</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+</div> 
+  
+  
+  
+  <p > isto está antes do artigos</p>
+<article>
+ <header>
+  <h2>start slipsum code</h2>
+   <p>My money's in that office, right? </p>
+ </header>
+ <p> Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime. Do you believe that shit? It actually says that in the little book that comes with it: the most popular gun in American crime. Like they're actually proud of that shit. </p>
+ <p><a href="https://slipsum.com/">Continue reading: the best placeholder EVER</a></p>
+</article>
+<p> <p> Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass. 
+
+<q>The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</q></p>
+
+<aside>
+  <q> Well, the way they make shows is, they make one show. That show's called a pilot.  </q>
+</aside>
+
+<pThen they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.</p></p>
+
+<article>
+  <header>
+    <h2>Apples</h2>
+    <p>Tasty, delicious fruit!</p>
+  </header>
+  <p>The apple is the pomaceous fruit of the apple tree.</p>
+  <section aria-label="Red apples.">
+    <h3>Red Delicious</h3>
+    <p>These bright red apples are the most common found in many
+    supermarkets.</p>
+  </section>
+  <section aria-label="Green apples.">
+    <h3>Granny Smith</h3>
+    <p>These juicy, green apples make a great filling for
+    apple pies.</p>
+  </section>
+      <footer>
+      <p><a href="?edit">Edit</a> | <a href="?delete">Delete</a> | <a href="?Rename">Rename</a></p> <!--os botoes ainda nao fazem nada-->
+    </footer>
+</article>
+<br>
+ <article>
+    <header>
+      <h2>Another Article</h2>
+      <p> paragraph </p>
+    </header>
+   
+    <div>
+      <section id="public">
+        <h2>Another section</h2>
+        <p>...more...</p>
+      </section>
+
+    </div>
+  
+  </article>
+
+<br>
+<br>
+<br>
+
+
+
+
+<p id="fim">> isto está após o artigo </p>
+
+<footer>
+    <p>footer © </p>
+    <p><a href="about.html">About</a> -
+      <a href="contact.html">Contact</a></p>
+  </footer>
+  
+     <script>
+
+      // When the user scrolls the page, execute myFunction
+window.onscroll = function() {myFunction()};
+
+// Get the navbar
+var navbar = document.getElementById("navbar");
+
+// Get the offset position of the navbar
+var sticky = navbar.offsetTop;
+
+// Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+} 
+      </script>
+  </body>
+</html>
